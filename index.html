@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Verdana', sans-serif;
-      background: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      background: radial-gradient(circle, #85C1E9, #2980B9, #154360);
       animation: gradientShift 10s infinite alternate;
       height: 100vh;
       display: flex;
@@ -18,9 +18,9 @@
     }
 
     @keyframes gradientShift {
-      0% { background: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb); }
-      50% { background: radial-gradient(circle, #fbc2eb, #a18cd1, #fad0c4); }
-      100% { background: radial-gradient(circle, #fad0c4, #ff9a9e, #fbc2eb); }
+      0% { background: radial-gradient(circle, #85C1E9, #2980B9); }
+      50% { background: radial-gradient(circle, #2980B9, #154360); }
+      100% { background: radial-gradient(circle, #154360, #85C1E9); }
     }
 
     /* Floating Elements */
@@ -48,52 +48,11 @@
       100% { transform: translateY(-10vh) scale(0.8); }
     }
 
-    /* Twinkling Stars */
-    .stars {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      pointer-events: none;
-    }
-
-    .stars div {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.8);
-      width: 2px;
-      height: 2px;
-      border-radius: 50%;
-      animation: twinkle 3s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.5; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.5); }
-    }
-
-    /* Fireworks */
-    .firework {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: radial-gradient(circle, #ffeaa7, #fab1a0);
-      border-radius: 50%;
-      animation: burst 3s infinite ease-in-out;
-    }
-
-    @keyframes burst {
-      0% { transform: scale(0.5); opacity: 1; }
-      50% { transform: scale(2); opacity: 0.6; }
-      100% { transform: scale(0.5); opacity: 0; }
-    }
-
-    /* Birthday Card */
+    /* Card Styles */
     .card {
       width: 320px;
       height: 220px;
-      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+      background: linear-gradient(135deg, #5DADE2, #2980B9);
       border-radius: 15px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
       text-align: center;
@@ -117,63 +76,38 @@
       height: 100%;
       font-size: 26px;
       font-weight: bold;
-      color: #e84393;
+      color: #154360;
       text-transform: uppercase;
       letter-spacing: 3px;
     }
 
-    /* Containers */
-    .cake-container, .message-container, .photo-container {
-      display: none;
-      text-align: center;
-      z-index: 1;
-    }
-
-    .cake-container img, .photo-container img {
-      width: 160px;
-      animation: cakeGlow 2s infinite alternate;
-    }
-
-    @keyframes cakeGlow {
-      0% { opacity: 0.7; }
-      100% { opacity: 1; }
-    }
-
-    button {
-      padding: 12px 24px;
-      background: #e84393;
+    /* Music Toggle Button */
+    .music-toggle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: #1F618D;
       color: white;
+      padding: 10px 20px;
       border: none;
       border-radius: 50px;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 20px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
       transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    button:hover {
-      background: #fa949d;
+    .music-toggle:hover {
+      background: #3498DB;
       transform: scale(1.1);
-    }
-
-    .party-popper {
-      width: 100px;
-      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <!-- Floating Hearts -->
+  <!-- Floating Elements -->
   <div class="floating">
     <span style="top: 90%; left: 20%; animation-delay: 0.5s;"></span>
     <span style="top: 85%; left: 70%; animation-delay: 1.5s;"></span>
-  </div>
-
-  <!-- Twinkling Stars -->
-  <div class="stars">
-    <div style="top: 10%; left: 15%; animation-delay: 0s;"></div>
-    <div style="top: 20%; left: 25%; animation-delay: 2s;"></div>
   </div>
 
   <!-- Birthday Card -->
@@ -181,10 +115,37 @@
     <div class="card-content">🎉 Tap to Open 🎉</div>
   </div>
 
+  <!-- Music Toggle Button -->
+  <button class="music-toggle" id="musicToggle">🔊 Play Music</button>
+
+  <!-- Audio Element -->
+  <audio id="birthdaySong" loop>
+    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <script>
     const card = document.getElementById('birthdayCard');
+    const musicToggle = document.getElementById('musicToggle');
+    const birthdaySong = document.getElementById('birthdaySong');
+
+    // Card flip logic
     card.addEventListener('click', () => {
       card.classList.add('open');
+    });
+
+    // Music toggle logic
+    let isPlaying = false;
+
+    musicToggle.addEventListener('click', () => {
+      if (isPlaying) {
+        birthdaySong.pause();
+        musicToggle.textContent = "🔊 Play Music";
+      } else {
+        birthdaySong.play();
+        musicToggle.textContent = "🔇 Pause Music";
+      }
+      isPlaying = !isPlaying;
     });
   </script>
 </body>
