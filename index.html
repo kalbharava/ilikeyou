@@ -17,19 +17,22 @@
     }
 
     .card {
-      width: 300px;
-      height: 200px;
-      background: #e0f7fa;
-      border: 3px solid #1f77b4;
-      border-radius: 10px;
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+      width: 320px;
+      height: 220px;
+      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
       text-align: center;
       cursor: pointer;
       transform-origin: right;
       transform: rotateY(0deg);
-      transition: transform 1s ease-in-out;
+      transition: transform 1s ease-in-out, box-shadow 0.3s ease;
       position: relative;
       z-index: 2;
+      border: 5px solid rgba(255, 255, 255, 0.6);
+    }
+    .card:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.8);
     }
     .card.open {
       transform: rotateY(180deg);
@@ -39,11 +42,45 @@
       justify-content: center;
       align-items: center;
       height: 100%;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
-      color: #1f77b4;
+      color: #e84393;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      position: relative;
+    }
+
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .sparkles span {
+      position: absolute;
+      display: block;
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 2s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(0) translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1) translateY(-20px);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(0) translateY(-40px);
+        opacity: 0;
+      }
     }
 
     .cake-container {
@@ -118,10 +155,16 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      color: #1f77b4;
+      color: #e84393;
       font-size: 18px;
       font-weight: bold;
       letter-spacing: 1px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
     }
   </style>
 </head>
@@ -129,7 +172,15 @@
 
 <!-- Birthday Card -->
 <div class="card" id="birthdayCard">
-  <div class="card-content">🎉 Tap to Open 🎉</div>
+  <div class="card-content">
+    🎉 Tap to Open 🎉
+    <div class="sparkles">
+      <span style="top: 10%; left: 20%;"></span>
+      <span style="top: 50%; left: 80%;"></span>
+      <span style="top: 70%; left: 30%;"></span>
+      <span style="top: 90%; left: 60%;"></span>
+    </div>
+  </div>
 </div>
 
 <!-- Birthday Cake -->
