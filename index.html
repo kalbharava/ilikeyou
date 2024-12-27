@@ -9,6 +9,234 @@
       margin: 0;
       font-family: 'Verdana', sans-serif;
       background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb);
+      animation: gradientShift 15s infinite alternate;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb); }
+      50% { background: linear-gradient(to bottom, #fbc2eb, #a18cd1, #fad0c4); }
+      100% { background: linear-gradient(to bottom, #fad0c4, #ff9a9e, #fbc2eb); }
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .confetti span {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: confettiFall 6s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .balloons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background: radial-gradient(circle, #ff6b6b, #e74c3c);
+      border-radius: 50%;
+      animation: floatUp 8s infinite ease-in-out;
+    }
+
+    .balloon:before {
+      content: '';
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 25px;
+      background: #d3d3d3;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(-200vh); }
+    }
+
+    .fireworks {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, #ffeaa7, #fab1a0);
+      border-radius: 50%;
+      animation: burst 3s infinite ease-in-out;
+    }
+
+    @keyframes burst {
+      0% { transform: scale(0.5); opacity: 1; }
+      50% { transform: scale(2); opacity: 0.6; }
+      100% { transform: scale(0.5); opacity: 0; }
+    }
+
+    .card {
+      width: 320px;
+      height: 220px;
+      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
+      text-align: center;
+      cursor: pointer;
+      transform-origin: right;
+      transform: rotateY(0deg);
+      transition: transform 1s ease-in-out, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 2;
+      border: 5px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .card:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    .card.open {
+      transform: rotateY(180deg);
+    }
+
+    .card-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      font-size: 26px;
+      font-weight: bold;
+      color: #e84393;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .card-flip {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #e84393;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Stars -->
+  <div class="stars">
+    <div class="star" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+    <div class="star" style="top: 20%; left: 50%; animation-delay: 1s;"></div>
+    <div class="star" style="top: 30%; left: 70%; animation-delay: 2s;"></div>
+    <div class="star" style="top: 40%; left: 30%; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- Confetti -->
+  <div class="confetti">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Balloons -->
+  <div class="balloons">
+    <div class="balloon" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 30%; animation-delay: 1s;"></div>
+    <div class="balloon" style="left: 50%; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 70%; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- Fireworks -->
+  <div class="fireworks">
+    <div class="firework" style="top: 20%; left: 40%;"></div>
+    <div class="firework" style="top: 30%; left: 60%;"></div>
+  </div>
+
+  <!-- Birthday Card -->
+  <div class="card" id="birthdayCard">
+    <div class="card-content">🎉 Tap to Open 🎉</div>
+  </div>
+
+  <div class="card-flip">🎁 Flip me for the surprise! 🎁</div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise for Suhani</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Verdana', sans-serif;
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb);
       animation: gradientShift 10s infinite alternate;
       height: 100vh;
       display: flex;
