@@ -8,8 +8,8 @@
     body {
       margin: 0;
       font-family: 'Verdana', sans-serif;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb);
-      animation: gradientShift 15s infinite alternate;
+      background: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      animation: gradientShift 10s infinite alternate;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -18,26 +18,52 @@
     }
 
     @keyframes gradientShift {
-      0% { background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb); }
-      50% { background: linear-gradient(to bottom, #fbc2eb, #a18cd1, #fad0c4); }
-      100% { background: linear-gradient(to bottom, #fad0c4, #ff9a9e, #fbc2eb); }
+      0% { background: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb); }
+      50% { background: radial-gradient(circle, #fbc2eb, #a18cd1, #fad0c4); }
+      100% { background: radial-gradient(circle, #fad0c4, #ff9a9e, #fbc2eb); }
     }
 
-    .stars {
+    /* Floating Elements */
+    .floating {
       position: absolute;
       width: 100%;
       height: 100%;
       overflow: hidden;
       pointer-events: none;
-      z-index: 1;
     }
 
-    .star {
+    .floating span {
       position: absolute;
+      display: block;
+      width: 15px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.8); }
+      50% { transform: translateY(50vh) scale(1); }
+      100% { transform: translateY(-10vh) scale(0.8); }
+    }
+
+    /* Twinkling Stars */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .stars div {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
       width: 2px;
       height: 2px;
-      background: white;
-      opacity: 0.8;
       border-radius: 50%;
       animation: twinkle 3s infinite ease-in-out;
     }
@@ -47,77 +73,7 @@
       50% { opacity: 1; transform: scale(1.5); }
     }
 
-    .confetti {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .confetti span {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      animation: confettiFall 6s linear infinite;
-    }
-
-    @keyframes confettiFall {
-      0% {
-        transform: translateY(0) rotate(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    .balloons {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .balloon {
-      position: absolute;
-      width: 50px;
-      height: 70px;
-      background: radial-gradient(circle, #ff6b6b, #e74c3c);
-      border-radius: 50%;
-      animation: floatUp 8s infinite ease-in-out;
-    }
-
-    .balloon:before {
-      content: '';
-      position: absolute;
-      bottom: -25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: 25px;
-      background: #d3d3d3;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-      100% { transform: translateY(-200vh); }
-    }
-
-    .fireworks {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
+    /* Fireworks */
     .firework {
       position: absolute;
       width: 10px;
@@ -133,6 +89,7 @@
       100% { transform: scale(0.5); opacity: 0; }
     }
 
+    /* Birthday Card */
     .card {
       width: 320px;
       height: 220px;
@@ -147,10 +104,6 @@
       position: relative;
       z-index: 2;
       border: 5px solid rgba(255, 255, 255, 0.6);
-    }
-
-    .card:hover {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.8);
     }
 
     .card.open {
@@ -169,220 +122,58 @@
       letter-spacing: 3px;
     }
 
-    .card-flip {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: #e84393;
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      animation: pulse 1.5s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-    }
-  </style>
-</head>
-<body>
-  <!-- Stars -->
-  <div class="stars">
-    <div class="star" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
-    <div class="star" style="top: 20%; left: 50%; animation-delay: 1s;"></div>
-    <div class="star" style="top: 30%; left: 70%; animation-delay: 2s;"></div>
-    <div class="star" style="top: 40%; left: 30%; animation-delay: 3s;"></div>
-  </div>
-
-  <!-- Confetti -->
-  <div class="confetti">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <!-- Balloons -->
-  <div class="balloons">
-    <div class="balloon" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="balloon" style="left: 30%; animation-delay: 1s;"></div>
-    <div class="balloon" style="left: 50%; animation-delay: 2s;"></div>
-    <div class="balloon" style="left: 70%; animation-delay: 3s;"></div>
-  </div>
-
-  <!-- Fireworks -->
-  <div class="fireworks">
-    <div class="firework" style="top: 20%; left: 40%;"></div>
-    <div class="firework" style="top: 30%; left: 60%;"></div>
-  </div>
-
-  <!-- Birthday Card -->
-  <div class="card" id="birthdayCard">
-    <div class="card-content">🎉 Tap to Open 🎉</div>
-  </div>
-
-  <div class="card-flip">🎁 Flip me for the surprise! 🎁</div>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Surprise for Suhani</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Verdana', sans-serif;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb);
-      animation: gradientShift 10s infinite alternate;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    @keyframes gradientShift {
-      0% { background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb); }
-      50% { background: linear-gradient(to bottom, #a18cd1, #fbc2eb, #fad0c4); }
-      100% { background: linear-gradient(to bottom, #fad0c4, #ff9a9e, #fbc2eb); }
-    }
-
-    .confetti {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
+    /* Containers */
+    .cake-container, .message-container, .photo-container {
+      display: none;
+      text-align: center;
       z-index: 1;
     }
 
-    .confetti span {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      animation: confettiFall 5s linear infinite;
+    .cake-container img, .photo-container img {
+      width: 160px;
+      animation: cakeGlow 2s infinite alternate;
     }
 
-    @keyframes confettiFall {
-      0% {
-        transform: translateY(0) rotate(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
+    @keyframes cakeGlow {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
     }
 
-    .balloons {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .balloon {
-      position: absolute;
-      width: 40px;
-      height: 60px;
-      background: radial-gradient(circle, #ff6b6b, #e74c3c);
-      border-radius: 50%;
-      animation: floatUp 6s infinite ease-in-out;
-    }
-
-    .balloon:before {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: 20px;
-      background: #d3d3d3;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-      100% { transform: translateY(-200vh); }
-    }
-
-    .card {
-      width: 320px;
-      height: 220px;
-      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-      border-radius: 15px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
-      text-align: center;
-      cursor: pointer;
-      transform-origin: right;
-      transform: rotateY(0deg);
-      transition: transform 1s ease-in-out, box-shadow 0.3s ease;
-      position: relative;
-      z-index: 2;
-      border: 5px solid rgba(255, 255, 255, 0.6);
-    }
-
-    .card:hover {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.8);
-    }
-
-    .card.open {
-      transform: rotateY(180deg);
-    }
-
-    .card-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      font-size: 26px;
-      font-weight: bold;
-      color: #e84393;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
-
-    .card-flip {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: #e84393;
+    button {
+      padding: 12px 24px;
+      background: #e84393;
+      color: white;
+      border: none;
+      border-radius: 50px;
       font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      animation: pulse 1.5s infinite ease-in-out;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
+    button:hover {
+      background: #fa949d;
+      transform: scale(1.1);
+    }
+
+    .party-popper {
+      width: 100px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <!-- Confetti -->
-  <div class="confetti">
-    <span style="top: 5%; left: 10%;"></span>
-    <span style="top: 15%; left: 50%;"></span>
-    <span style="top: 20%; left: 70%;"></span>
-    <span style="top: 30%; left: 30%;"></span>
-    <span style="top: 35%; left: 80%;"></span>
+  <!-- Floating Hearts -->
+  <div class="floating">
+    <span style="top: 90%; left: 20%; animation-delay: 0.5s;"></span>
+    <span style="top: 85%; left: 70%; animation-delay: 1.5s;"></span>
   </div>
 
-  <!-- Balloons -->
-  <div class="balloons">
-    <div class="balloon" style="left: 20%; animation-delay: 0s;"></div>
-    <div class="balloon" style="left: 40%; animation-delay: 1s;"></div>
-    <div class="balloon" style="left: 60%; animation-delay: 2s;"></div>
-    <div class="balloon" style="left: 80%; animation-delay: 3s;"></div>
+  <!-- Twinkling Stars -->
+  <div class="stars">
+    <div style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+    <div style="top: 20%; left: 25%; animation-delay: 2s;"></div>
   </div>
 
   <!-- Birthday Card -->
@@ -390,24 +181,10 @@
     <div class="card-content">🎉 Tap to Open 🎉</div>
   </div>
 
-  <div class="card-flip">🎁 Flip me for the surprise! 🎁</div>
-
   <script>
     const card = document.getElementById('birthdayCard');
-    const confetti = document.querySelectorAll('.confetti span');
-
-    // Animate confetti
-    confetti.forEach((c, i) => {
-      c.style.left = `${Math.random() * 100}%`;
-      c.style.animationDelay = `${Math.random() * 2}s`;
-    });
-
-    // Card flip effect
     card.addEventListener('click', () => {
       card.classList.add('open');
-      setTimeout(() => {
-        card.style.display = 'none';
-      }, 1000);
     });
   </script>
 </body>
