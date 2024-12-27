@@ -8,12 +8,82 @@
     body {
       margin: 0;
       font-family: 'Verdana', sans-serif;
-      background: linear-gradient(to bottom, #85C1E9, #2980B9);
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb);
+      animation: gradientShift 10s infinite alternate;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb); }
+      50% { background: linear-gradient(to bottom, #a18cd1, #fbc2eb, #fad0c4); }
+      100% { background: linear-gradient(to bottom, #fad0c4, #ff9a9e, #fbc2eb); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .confetti span {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: confettiFall 5s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .balloons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background: radial-gradient(circle, #ff6b6b, #e74c3c);
+      border-radius: 50%;
+      animation: floatUp 6s infinite ease-in-out;
+    }
+
+    .balloon:before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: #d3d3d3;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(-200vh); }
     }
 
     .card {
@@ -31,12 +101,15 @@
       z-index: 2;
       border: 5px solid rgba(255, 255, 255, 0.6);
     }
+
     .card:hover {
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.8);
     }
+
     .card.open {
       transform: rotateY(180deg);
     }
+
     .card-content {
       display: flex;
       justify-content: center;
@@ -47,108 +120,6 @@
       color: #e84393;
       text-transform: uppercase;
       letter-spacing: 3px;
-      position: relative;
-    }
-
-    .sparkles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .sparkles span {
-      position: absolute;
-      display: block;
-      width: 5px;
-      height: 5px;
-      background: white;
-      border-radius: 50%;
-      animation: sparkle 2s infinite ease-in-out;
-    }
-
-    @keyframes sparkle {
-      0% {
-        transform: scale(0) translateY(0);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1) translateY(-20px);
-        opacity: 0.7;
-      }
-      100% {
-        transform: scale(0) translateY(-40px);
-        opacity: 0;
-      }
-    }
-
-    .cake-container {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      color: white;
-      z-index: 1;
-    }
-
-    .cake-container img {
-      width: 160px;
-      animation: cakeGlow 2s infinite alternate;
-    }
-
-    @keyframes cakeGlow {
-      0% { opacity: 0.7; }
-      100% { opacity: 1; }
-    }
-
-    .message-container, .photo-container {
-      display: none;
-      text-align: center;
-      color: white;
-      animation: fadeIn 2s ease-in-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .message-container h2, .photo-container h1 {
-      margin: 20px 0;
-    }
-
-    .message-container p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    .photo-container img {
-      width: 200px;
-      border-radius: 50%;
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    button {
-      padding: 12px 24px;
-      background: #1f77b4;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-size: 18px;
-      cursor: pointer;
-      margin-top: 20px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    button:hover {
-      background: #3498db;
-      transform: scale(1.1);
-    }
-
-    .party-popper {
-      width: 100px;
-      margin-top: 20px;
     }
 
     .card-flip {
@@ -169,73 +140,47 @@
   </style>
 </head>
 <body>
-
-<!-- Birthday Card -->
-<div class="card" id="birthdayCard">
-  <div class="card-content">
-    🎉 Tap to Open 🎉
-    <div class="sparkles">
-      <span style="top: 10%; left: 20%;"></span>
-      <span style="top: 50%; left: 80%;"></span>
-      <span style="top: 70%; left: 30%;"></span>
-      <span style="top: 90%; left: 60%;"></span>
-    </div>
+  <!-- Confetti -->
+  <div class="confetti">
+    <span style="top: 5%; left: 10%;"></span>
+    <span style="top: 15%; left: 50%;"></span>
+    <span style="top: 20%; left: 70%;"></span>
+    <span style="top: 30%; left: 30%;"></span>
+    <span style="top: 35%; left: 80%;"></span>
   </div>
-</div>
 
-<!-- Birthday Cake -->
-<div class="cake-container" id="cakeContainer">
-  <img src="https://images.rawpixel.com/image_png_300/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8yMl9iaXJ0aGRheV9jYWtlX2N1dGVfM2RfaXNvbGF0ZWRfb25fd2hpdGVfYmFja19lN2Y5ZWJiYi1kMTE4LTQzZDQtOGQ2Ni02ZDk4YjQyODM5MzkucG5n.png">
-  <p>🎂 Blow the candles to reveal the surprise! 🎂</p>
-  <button onclick="revealMessage()">Blow Candles</button>
-</div>
+  <!-- Balloons -->
+  <div class="balloons">
+    <div class="balloon" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 40%; animation-delay: 1s;"></div>
+    <div class="balloon" style="left: 60%; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 80%; animation-delay: 3s;"></div>
+  </div>
 
-<!-- Birthday Message -->
-<div class="message-container" id="messageContainer">
-  <h2>🎉 Happy Birthday, Suhani! 🎉</h2>
-  <p>Wishing you a magical day filled with happiness and laughter. You light up every moment with your sweet smile. Have the best birthday ever!</p>
-  <p>🎂 Date of Birth: 4th January 🎂</p>
-  <button onclick="showPhoto()">See Your Surprise</button>
-</div>
+  <!-- Birthday Card -->
+  <div class="card" id="birthdayCard">
+    <div class="card-content">🎉 Tap to Open 🎉</div>
+  </div>
 
-<!-- Final Surprise Photo -->
-<div class="photo-container" id="photoContainer">
-  <h1>🎉 Happy Birthday, Suhani! 🎉</h1>
-  <img src="https://img.icons8.com/emoji/256/party-popper.png" alt="Celebration" class="party-popper">
-  <p>You are amazing and loved by everyone around you. Keep shining like the star you are! 🥳</p>
-</div>
+  <div class="card-flip">🎁 Flip me for the surprise! 🎁</div>
 
-<div class="card-flip" id="flipText">🎁 Flip me for the surprise! 🎁</div>
+  <script>
+    const card = document.getElementById('birthdayCard');
+    const confetti = document.querySelectorAll('.confetti span');
 
-<script>
-  const card = document.getElementById('birthdayCard');
-  const cakeContainer = document.getElementById('cakeContainer');
-  const messageContainer = document.getElementById('messageContainer');
-  const photoContainer = document.getElementById('photoContainer');
-  const flipText = document.getElementById('flipText');
+    // Animate confetti
+    confetti.forEach((c, i) => {
+      c.style.left = `${Math.random() * 100}%`;
+      c.style.animationDelay = `${Math.random() * 2}s`;
+    });
 
-  // Card flip effect
-  card.addEventListener('click', () => {
-    card.classList.add('open');
-    flipText.style.display = 'none';
-    setTimeout(() => {
-      card.style.display = 'none';
-      cakeContainer.style.display = 'flex';
-    }, 1000);
-  });
-
-  // Show birthday message
-  function revealMessage() {
-    cakeContainer.style.display = 'none';
-    messageContainer.style.display = 'block';
-  }
-
-  // Show final photo and message
-  function showPhoto() {
-    messageContainer.style.display = 'none';
-    photoContainer.style.display = 'block';
-  }
-</script>
-
+    // Card flip effect
+    card.addEventListener('click', () => {
+      card.classList.add('open');
+      setTimeout(() => {
+        card.style.display = 'none';
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
