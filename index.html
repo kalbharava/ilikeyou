@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Verdana', sans-serif;
-      background: linear-gradient(to bottom, #85C1E9, #5DADE2, #154360);
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb);
       animation: gradientShift 10s infinite alternate;
       height: 100vh;
       display: flex;
@@ -18,12 +18,11 @@
     }
 
     @keyframes gradientShift {
-      0% { background: linear-gradient(to bottom, #85C1E9, #5DADE2, #154360); }
-      50% { background: linear-gradient(to bottom, #154360, #85C1E9, #5DADE2); }
-      100% { background: linear-gradient(to bottom, #5DADE2, #154360, #85C1E9); }
+      0% { background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #fbc2eb); }
+      50% { background: linear-gradient(to bottom, #a18cd1, #fbc2eb, #fad0c4); }
+      100% { background: linear-gradient(to bottom, #fad0c4, #ff9a9e, #fbc2eb); }
     }
 
-    /* Confetti */
     .confetti {
       position: absolute;
       width: 100%;
@@ -53,7 +52,6 @@
       }
     }
 
-    /* Balloons */
     .balloons {
       position: absolute;
       width: 100%;
@@ -88,11 +86,10 @@
       100% { transform: translateY(-200vh); }
     }
 
-    /* Card */
     .card {
       width: 320px;
       height: 220px;
-      background: linear-gradient(135deg, #fbc2eb, #a18cd1);
+      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
       border-radius: 15px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.5);
       text-align: center;
@@ -167,20 +164,19 @@
 
   <div class="card-flip">🎁 Flip me for the surprise! 🎁</div>
 
-  <!-- Audio -->
-  <audio id="birthdaySong" loop>
-    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
   <script>
     const card = document.getElementById('birthdayCard');
-    const birthdaySong = document.getElementById('birthdaySong');
+    const confetti = document.querySelectorAll('.confetti span');
 
-    // Card flip logic and play music
+    // Animate confetti
+    confetti.forEach((c, i) => {
+      c.style.left = ${Math.random() * 100}%;
+      c.style.animationDelay = ${Math.random() * 2}s;
+    });
+
+    // Card flip effect
     card.addEventListener('click', () => {
       card.classList.add('open');
-      birthdaySong.play(); // Play the birthday song
       setTimeout(() => {
         card.style.display = 'none';
       }, 1000);
